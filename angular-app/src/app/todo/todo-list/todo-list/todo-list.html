@@ -1,0 +1,42 @@
+<app-todo-filter></app-todo-filter>
+
+<section class="card mt-4 p-4">
+    @if (stats().total === 0) {
+      <p style="color: var(--muted)">No tasks yet</p>
+    } @else {
+    <app-todo-stats></app-todo-stats>
+  
+    <ul role="list" class="space-y-2 max-h-80 overflow-auto pr-1 mt-4">
+      @for (t of list(); track t.id) {
+        <li
+         class="group flex items-center justify-between gap-3 rounded-xl border p-3 transition-all"
+         style="background: var(--bg); border-color: var(--border)"
+         [class.opacity-60]="t.completed"
+        >
+          <label class="flex flex-1 items-center gap-3 cursor-pointer">
+            <input 
+              type="checkbox" 
+              class="size-4 accent-indigo-500" 
+              [checked]="t.completed" 
+              (change)="toggle(t.id, t.title, t.completed)" />
+            
+            <input
+              class="flex-1 bg-transparent px-2 py-1 focus:outline-none focus:ring-1 rounded-md"
+              [style.color]="t.completed ? 'var(--muted)' : 'var(--text)'"
+              [style.text-decoration]="t.completed ? 'line-through' : 'none'"
+              [style.border-color]="'var(--border)'"
+              [value]="t.title"
+              [readOnly]="t.completed"
+              (change)="rename(t.id, $any($event.target).value, t.completed)"
+              [title]="t.title" />
+          </label>
+
+          <button
+          class="btn-ghost size-8 flex items-center justify-center rounded-md border transition-colors"
+          style="border-color: var(--border); color: var(--muted)"
+          (click)="store.delete(t.id)">✕</button>
+        </li>
+      }
+    </ul>
+    }
+</section>

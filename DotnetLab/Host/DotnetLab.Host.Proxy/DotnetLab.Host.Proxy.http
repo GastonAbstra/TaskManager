@@ -1,0 +1,6 @@
+@DotnetLab.Host.Proxy_HostAddress = http://localhost:5143
+
+GET {{DotnetLab.Host.Proxy_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

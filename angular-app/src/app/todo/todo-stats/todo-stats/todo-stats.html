@@ -1,0 +1,10 @@
+<div class="mb-3 flex items-center justify-between">
+  <h3 class="text-sm font-semibold" style="color: var(--text)">Tasks</h3>
+  
+  <span
+    class="px-3 py-1 rounded-full text-xs transition-colors"
+    style="background: var(--bg); color: var(--muted); border: 1px solid var(--border)"
+  >
+    {{ stats().active }} active • {{ stats().completed }} done • {{ stats().total }} total
+  </span>
+</div>

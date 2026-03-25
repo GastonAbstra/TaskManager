@@ -1,0 +1,26 @@
+<section class="card flex gap-2 mt-3 mb-3 p-2">
+  <button
+    class="btn flex-1 text-sm"
+    [class.btn-primary]="currentFilter() === 'all'"
+    [style.color]="currentFilter() === 'all' ? 'white' : 'var(--muted)'"
+    (click)="filter('all')"
+  >
+    All
+  </button>
+  <button
+    class="btn flex-1 text-sm"
+    [class.btn-primary]="currentFilter() === 'active'"
+    [style.color]="currentFilter() === 'active' ? 'white' : 'var(--muted)'"
+    (click)="filter('active')"
+  >
+    Active
+  </button>
+  <button
+    class="btn flex-1 text-sm"
+    [class.btn-primary]="currentFilter() === 'completed'"
+    [style.color]="currentFilter() === 'completed' ? 'white' : 'var(--muted)'"
+    (click)="filter('completed')"
+  >
+    Completed
+  </button>
+</section>

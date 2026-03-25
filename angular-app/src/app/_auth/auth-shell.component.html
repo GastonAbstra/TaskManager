@@ -1,0 +1,19 @@
+<div 
+  class="auth-container transition-colors duration-300" 
+  [class.dark]="themeService.isDark()"
+  style="min-h: 100vh; display: flex; align-items: center; justify-content: center;"
+>
+  <div class="flip-card" [class.is-flipped]="!isLogin()">
+    <div class="flip-card-inner">
+      
+      <div class="flip-card-front">
+        <app-sign-in (toggleFlip)="toggleCard()"></app-sign-in>
+      </div>
+
+      <div class="flip-card-back">
+        <app-sign-up (toggleFlip)="toggleCard()"></app-sign-up>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div [class.dark]="themeService.isDark()" class="min-h-screen transition-colors duration-300">
+  <main class="container-page py-6">
+    <app-header [title]="'Welcome back'"></app-header>
+    
+    <div class="flex flex-col gap-6 mt-4">
+      <app-todo-add></app-todo-add>
+      <app-todo-list></app-todo-list>
+    </div>
+  </main>
+</div>

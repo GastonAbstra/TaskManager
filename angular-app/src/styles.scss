@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #f4f7f6;
+    --panel: #ffffff;
+    --text: #1a1a1a;
+    --muted: #64748b;
+    --brand: #4f8cff;
+    --brand-2: #0048f0;
+    --danger: #ef4444;
+    --ok: #10b981;
+    --border: #e2e8f0;
+    --radius: 0.8rem;
+
+    color-scheme: light;
+  }
+
+  /* --- MODO OSCURO (Se activa con la clase .dark en el HTML) --- */
+  .dark {
+    --bg: #0b0f1a;
+    --panel: #121828;
+    --text: #e7eaf0;
+    --muted: #9aa4b2;
+    --brand: rgb(98, 0, 255);
+    --brand-2: rgb(117, 34, 250);
+    --border: #1e293b;
+
+    color-scheme: dark;
+  }
+
+  html, body { 
+    height: 100%; 
+    margin: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { 
+    @apply text-indigo-500 hover:text-indigo-400 no-underline transition-colors; 
+  }
+}
+
+@layer components {
+  .container-page { 
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8; 
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) + 0.2rem);
+    @apply shadow-sm transition-all duration-300;
+  }
+  .card-body { @apply p-4 md:p-6; }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium transition-all
+           active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    background: var(--brand);
+    @apply text-white shadow-lg shadow-indigo-500/20; 
+  }
+  .btn-primary:hover {
+    background: var(--brand-2);
+  }
+
+  .btn-ghost { 
+    @apply bg-transparent text-zinc-500 hover:text-zinc-100 hover:bg-zinc-500/10; 
+    .dark & { @apply text-zinc-400 hover:text-white; }
+  }
+
+  .btn-danger { 
+    @apply bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-500/20; 
+  }
+
+  .input {
+    background: var(--bg);
+    color: var(--text);
+    @apply w-full rounded-lg px-3 py-2 border border-zinc-500/20 shadow-sm
+           focus:outline-none focus:ring-2 focus:ring-blue-500/50 
+           focus:border-indigo-500 transition-all placeholder:text-zinc-500;
+           
+    .dark & {
+      @apply border-zinc-800 ring-zinc-800;
+    }
+  }
+
+  .fail-alert {
+    @apply bg-red-500/30 border border-red-800 text-red-600;
+    .dark & {
+      @apply bg-red-900/30 border border-red-800 text-red-400;
+    }
+  }
+  .text-subtle { color: var(--muted); }
+}
