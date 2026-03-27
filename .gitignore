@@ -1,6 +1,6 @@
+bin/
+obj/
+
 # Ignore Aspire folder
 .aspire/
 
-# Ignore build output folders
-bin/
-obj/
