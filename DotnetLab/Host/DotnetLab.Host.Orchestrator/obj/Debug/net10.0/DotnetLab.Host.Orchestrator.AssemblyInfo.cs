@@ -27,7 +27,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DotnetLab.Host.Orchestrator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3a860f77c0d66002ebebcfb1f5628f60adc67c1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b0e08389eab78ba0d9ee7e0c69d90010d7c3ef2")]
 [assembly: System.Reflection.AssemblyProductAttribute("DotnetLab.Host.Orchestrator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DotnetLab.Host.Orchestrator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
