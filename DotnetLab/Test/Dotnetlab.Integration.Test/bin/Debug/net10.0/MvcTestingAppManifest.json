@@ -1,9 +1,0 @@
-{
-  "DotnetLab.Access.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Access\\DotnetLab.Access.Common",
-  "DotnetLab.Access.Todo.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Access\\DotnetLab.Access.Todo.Data",
-  "DotnetLab.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Common\\DotnetLab.Common",
-  "DotnetLab.Host.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Host\\DotnetLab.Host.Api",
-  "DotnetLab.Host.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Host\\DotnetLab.Host.Common",
-  "DotnetLab.Host.Orchestrator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Host\\DotnetLab.Host.Orchestrator",
-  "DotnetLab.Manager.Customer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Manager\\DotnetLab.Manager.Customer"
-}
