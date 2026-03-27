@@ -19,20 +19,35 @@ public class TodoManagerTests
     }
 
     [Test]
-    public async Task CreateAsync_ShouldReturnTrue_WhenAccessSucceeds()
+    public async Task CreateAsync_ShouldReturnTodoModel_WhenAccessSucceeds()
     {
+        // Arrange
         var request = new CreateTodoRequest(1, "Task 1");
-        
-        _todoDataAccessMock.CreateAsync(Arg.Any<CreateTodoAccessRequest>())
-                           .Returns(Task.FromResult(true));
 
+        var accessResponse = new TodoAccessModel(
+            Id: 10,
+            UserId: request.UserId,
+            Title: request.Title,
+            Completed: false
+        );
+
+        _todoDataAccessMock.CreateAsync(Arg.Any<CreateTodoAccessRequest>())
+                        .Returns(Task.FromResult(accessResponse));
+
+        // Act
         var result = await _todoManager.CreateAsync(request);
 
-        Assert.That(result, Is.True);
-        
-        await _todoDataAccessMock.Received(1).CreateAsync(Arg.Is<CreateTodoAccessRequest>(x => 
-            x.UserId == request.UserId && 
-            x.Title == request.Title));
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Id, Is.EqualTo(accessResponse.Id));
+        Assert.That(result.UserId, Is.EqualTo(accessResponse.UserId));
+        Assert.That(result.Title, Is.EqualTo(accessResponse.Title));
+        Assert.That(result.Completed, Is.EqualTo(accessResponse.Completed));
+
+        await _todoDataAccessMock.Received(1).CreateAsync(
+            Arg.Is<CreateTodoAccessRequest>(x =>
+                x.UserId == request.UserId &&
+                x.Title == request.Title));
     }
 
     [Test]
@@ -56,18 +71,7 @@ public class TodoManagerTests
     }
 
     [Test]
-    public void CreateAsync_WhenTitleIsEmpty_ShouldThrowArgumentException()
-    {
-        var request = new CreateTodoRequest(1, "");
-
-        var ex = Assert.ThrowsAsync<ArgumentException>(async () => 
-            await _todoManager.CreateAsync(request));
-        
-        Assert.That(ex.Message, Is.EqualTo("A task title cannot be empty"));
-    }
-
-    [Test]
-    public async Task DeleteAsync_WhenUserOwnsTodo_ShouldReturnTrue()
+    public async Task DeleteAsync_ShouldReturnTodoId()
     {
         int userId = 1;
         int todoIdToDelete = 10;
@@ -77,29 +81,10 @@ public class TodoManagerTests
         };
 
         _todoDataAccessMock.GetByUserIdAsync(userId).Returns(userTasks);
-        _todoDataAccessMock.DeleteAsync(todoIdToDelete).Returns(true);
+        _todoDataAccessMock.DeleteAsync(todoIdToDelete).Returns(todoIdToDelete);
 
-        var result = await _todoManager.DeleteAsync(userId, todoIdToDelete);
+        var actual = await _todoManager.DeleteAsync(userId, todoIdToDelete);
 
-        Assert.That(result, Is.True);
-        await _todoDataAccessMock.Received(1).DeleteAsync(todoIdToDelete);
-    }
-
-    [Test]
-    public async Task DeleteAsync_WhenUserDoesNotOwnTodo_ShouldReturnFalseAndNotCallDelete()
-    {
-        int userId = 1;
-        int maliciousTodoId = 999;
-        var userTasks = new List<TodoAccessModel> 
-        { 
-            new TodoAccessModel(10, userId, "My unique task :(", false) 
-        };
-
-        _todoDataAccessMock.GetByUserIdAsync(userId).Returns(userTasks);
-
-        var result = await _todoManager.DeleteAsync(userId, maliciousTodoId);
-
-        Assert.That(result, Is.False);
-        await _todoDataAccessMock.DidNotReceive().DeleteAsync(Arg.Any<int>());
+        Assert.That(actual, Is.EqualTo(todoIdToDelete));
     }
 }

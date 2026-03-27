@@ -17,5 +17,5 @@ public class Dotnetlab_Integration_Test
     /// <summary>
     /// The path to the Aspire Host project.
     /// </summary>
-    public static string ProjectPath => """c:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Test\Dotnetlab.Integration.Test""";
+    public static string ProjectPath => """C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Test\Dotnetlab.Integration.Test""";
 }

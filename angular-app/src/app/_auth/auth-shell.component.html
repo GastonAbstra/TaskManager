@@ -3,7 +3,11 @@
   [class.dark]="themeService.isDark()"
   style="min-h: 100vh; display: flex; align-items: center; justify-content: center;"
 >
-  <div class="flip-card" [class.is-flipped]="!isLogin()">
+  <div 
+    class="flip-card" 
+    [class.is-flipped]="!isLogin()"
+    [class.exit-rocket]="authStore.exiting()"
+    >
     <div class="flip-card-inner">
       
       <div class="flip-card-front">

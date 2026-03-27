@@ -15,6 +15,7 @@ type AuthState = {
   token: TokenModel | null;
   currentUser: UserModel | null;
   sessionExpiredDialogOpen: boolean;
+  exiting: boolean;
 };
 
 const initialState: AuthState = {
@@ -23,6 +24,7 @@ const initialState: AuthState = {
   token: null,
   currentUser: null,
   sessionExpiredDialogOpen: false,
+  exiting: false
 };
 
 const TOKEN_KEY = `auth_token_storage_key`;
@@ -92,8 +94,10 @@ export const AuthStore = signalStore(
                         user.data?.id,
                         user.data?.email
                       );
-                      patchState(store, { currentUser, loading: false });
-                      router.navigateByUrl('/');
+                      patchState(store, { currentUser, loading: false, exiting: true });
+                      setTimeout(() => {
+                        router.navigateByUrl('/');
+                      }, 500);
                     }
                   },
                   error: () => patchState(store, { loading: false, error: 'Error loading profile' })

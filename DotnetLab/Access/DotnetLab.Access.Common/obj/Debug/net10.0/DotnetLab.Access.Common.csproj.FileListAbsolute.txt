@@ -32,3 +32,4 @@ C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Common\obj\Debug\net10.0\DotnetLab.Access.Common.pdb
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Common\obj\Debug\net10.0\DotnetLab.Access.Common.genruntimeconfig.cache
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Common\obj\Debug\net10.0\ref\DotnetLab.Access.Common.dll
+C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Common\obj\Debug\net10.0\DotnetLab.Access.Common.sourcelink.json

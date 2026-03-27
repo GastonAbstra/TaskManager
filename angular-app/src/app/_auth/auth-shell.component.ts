@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ThemeService } from '../utils/helpers/theme-helper.service';
+import { AuthStore } from './services/auth.store';
 
 @Component({
   selector: 'app-auth-page',
@@ -12,6 +13,7 @@ import { ThemeService } from '../utils/helpers/theme-helper.service';
 })
 export class AuthPage {
   themeService = inject(ThemeService);
+  authStore = inject(AuthStore)
   isLogin = signal(true);
 
   toggleCard() {

@@ -344,3 +344,4 @@ C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Orch
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Orchestrator\obj\Debug\net10.0\DotnetLab.Host.Orchestrator.pdb
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Orchestrator\obj\Debug\net10.0\DotnetLab.Host.Orchestrator.genruntimeconfig.cache
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Orchestrator\obj\Debug\net10.0\ref\DotnetLab.Host.Orchestrator.dll
+C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Orchestrator\obj\Debug\net10.0\DotnetLab.Host.Orchestrator.sourcelink.json

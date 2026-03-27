@@ -1,4 +1,3 @@
-using System.Text.Json;
 using DotnetLab.Host.Api.Models.Todo;
 using DotnetLab.Manager.Customer.Contract.Todo;
 using DotnetLab.Manager.Customer.Contract.User;
@@ -6,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetLab.Host.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/todo")]
 [ApiController]
 public class TodoController : ControllerBase
 {
@@ -20,20 +19,27 @@ public class TodoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync(CreateTodoApiRequest request)
+    public async Task<TodoModel> CreateAsync(CreateTodoApiRequest request)
     {
+        if (string.IsNullOrWhiteSpace(request.Title))
+        {
+            throw new ArgumentException("A title cannot be empty");
+        }
         var managerRequest = new CreateTodoRequest(request.UserId, request.Title);
-        var success = await _todoManager.CreateAsync(managerRequest);
+        var result = await _todoManager.CreateAsync(managerRequest);
     
-        return success ? StatusCode(201) : BadRequest();
+        var model = new TodoModel(result.Id, result.UserId, result.Title, result.Completed);
+
+        return model;
     }
 
-    [HttpGet("{userId:int}")]
-    public async Task<ActionResult<IEnumerable<TodoModel>>> GetByUserIdAsync(int userId)
+    [HttpGet]
+    [Route("{userId}")]
+    public async Task<IEnumerable<TodoModel>> GetByUserIdAsync(int userId)
     {
         var items = await _todoManager.GetByUserIdAsync(userId);
         
-        return Ok(items);
+        return items;
     }
 
     [HttpPut]
@@ -50,15 +56,14 @@ public class TodoController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("{id:int}")]
+    [HttpDelete]
+    [Route("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         var model = await _user.GetByEmailAsync(Email);
         var userId = model.Id;
 
-        var success = await _todoManager.DeleteAsync(userId, id);
-        
-        if (!success) return NotFound();
+        _ = await _todoManager.DeleteAsync(userId, id);
 
         return NoContent();
     }

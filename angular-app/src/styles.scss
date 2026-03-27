@@ -20,7 +20,6 @@
     color-scheme: light;
   }
 
-  /* --- MODO OSCURO (Se activa con la clase .dark en el HTML) --- */
   .dark {
     --bg: #0b0f1a;
     --panel: #121828;
@@ -105,4 +104,22 @@
     }
   }
   .text-subtle { color: var(--muted); }
+
+  @keyframes rocket-out {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    20% {
+      transform: translateY(20px) scaleY(0.9) scaleX(1.1);
+    }
+    100% {
+      transform: translateY(-150vh) scaleY(1.5) scaleX(0.7);
+      opacity: 0;
+    }
+  }
+
+  .exit-rocket {
+    animation: rocket-out 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+    pointer-events: none;
+  }
 }

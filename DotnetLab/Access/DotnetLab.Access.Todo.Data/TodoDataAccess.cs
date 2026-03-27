@@ -14,7 +14,7 @@ internal class TodoDataAccess : ITodoDataAccess
         _context = context;
     }
 
-    public async Task<bool> CreateAsync(CreateTodoAccessRequest request)
+    public async Task<TodoAccessModel> CreateAsync(CreateTodoAccessRequest request)
     {
         var entity = new TodoItem
         {
@@ -25,13 +25,20 @@ internal class TodoDataAccess : ITodoDataAccess
         _ = _context.Todo.Add(entity);
         _ = await _context.SaveChangesAsync();
 
-        return true;
+        var model = await GetByIdAsync(entity.Id);
+
+        return model;
     }
 
+    public async Task<TodoAccessModel> GetByIdAsync(int id)
+    {
+        var entity = await _context.Todo.SingleAsync(x => x.Id == id);
+        var model = new TodoAccessModel(entity.Id, entity.UserId, entity.Title, entity.Completed);
+        return model;
+    }
     public async Task<IEnumerable<TodoAccessModel>> GetByUserIdAsync(int userId)
     {
         return await _context.Todo
-            .AsNoTracking()
             .Where(x => x.UserId == userId) 
             .Select(x => new TodoAccessModel(x.Id, x.UserId, x.Title, x.Completed))
             .ToListAsync();
@@ -49,17 +56,17 @@ internal class TodoDataAccess : ITodoDataAccess
         return model;
     }
 
-    public async Task<bool> DeleteAsync(int todoId)
+    public async Task<int> DeleteAsync(int todoId)
     {
         var entity = await _context.Todo.SingleOrDefaultAsync(x => x.Id == todoId);
 
         if (entity == null)
         {
-            return false;
+            throw new KeyNotFoundException("Delete operation found an exception: Task do not exists");
         }
 
         _context.Todo.Remove(entity);
         await _context.SaveChangesAsync();
-        return true; 
+        return todoId; 
     }
 }

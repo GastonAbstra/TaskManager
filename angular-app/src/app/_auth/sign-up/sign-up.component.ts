@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserApiService } from '../../user/data-access/user-api.service';
 import { AuthStore } from '../services/auth.store';
@@ -17,10 +17,14 @@ export class SignUpComponent {
   private readonly router = inject(Router);
   readonly store = inject(AuthStore);
 
-  onToggleFlip(event: Event) {
-    event.preventDefault();
-    this.toggleFlip.emit();
-  }
+  private passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+
+    return password && confirmPassword && password.value !== confirmPassword.value 
+      ? { passwordMismatch: true } 
+      : null;
+  };
 
   protected readonly signUpForm = new FormGroup({
     email: new FormControl('', { 
@@ -31,26 +35,33 @@ export class SignUpComponent {
       nonNullable: true, 
       validators: [Validators.required, Validators.minLength(6)] 
     }),
-  });
+    confirmPassword: new FormControl('', { 
+        nonNullable: true, 
+        validators: [Validators.required] 
+      })
+    }, { validators: this.passwordMatchValidator });
 
   public submitForm(): void {
     if (this.signUpForm.invalid) return;
 
     const rawValues = this.signUpForm.getRawValue();
+    
     this.userApiService.create(rawValues).subscribe({
       next: () => {
-        //if (result.success) {
-          // Una vez creado, redirigimos al login para que el usuario entre formalmente
+        this.toggleFlip.emit();
+
+        setTimeout(() => {
           this.router.navigateByUrl('/auth/signin');
-        //} else {
-          // Si el backend devuelve un error controlado (ej: email duplicado)
-          // Podrías mapearlo a una señal de error local o usar el store
-         // console.error(result.problemDetails.detail);
-        //}
+        }, 600); // Flipcard animation takes 0.6s
       },
       error: (err) => {
-        console.error('Error en el registro:', err);
+        console.error('Error al registrar usuario', err);
       }
     });
+  }
+
+  onToggleFlip(event: Event) {
+    event.preventDefault();
+    this.toggleFlip.emit();
   }
 }

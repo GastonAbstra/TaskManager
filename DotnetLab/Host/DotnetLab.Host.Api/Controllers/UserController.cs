@@ -1,4 +1,3 @@
-using System.Text.Json;
 using DotnetLab.Host.Api.Models.User;
 using DotnetLab.Manager.Customer.Contract.User;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotnetLab.Host.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/user")]
 public class UserController : ControllerBase
 {
     private readonly IUserManager _user;
@@ -33,16 +32,7 @@ public class UserController : ControllerBase
     [Authorize]
     public async Task<UserApiModel> Me()
     {
-        string contentEmail = JsonSerializer.Serialize(Email, new JsonSerializerOptions { WriteIndented = true });
-        Console.WriteLine("The method Me is performing: ");
-        Console.WriteLine(contentEmail);
-
         var model = await _user.GetByEmailAsync(Email);
-        
-        Console.WriteLine("GetByEmailAsync: ");
-        string modelResponse = JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true });
-        Console.WriteLine(modelResponse);
-
         var apiModel = new UserApiModel(model.Id, model.Email);
         return apiModel;
     }

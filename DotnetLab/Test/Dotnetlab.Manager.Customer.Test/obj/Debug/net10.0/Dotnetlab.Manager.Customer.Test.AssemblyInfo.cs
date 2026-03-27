@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dotnetlab.Manager.Customer.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3a860f77c0d66002ebebcfb1f5628f60adc67c1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dotnetlab.Manager.Customer.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dotnetlab.Manager.Customer.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

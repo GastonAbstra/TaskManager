@@ -36,3 +36,4 @@ C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Manager\DotnetLab.Manage
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Manager\DotnetLab.Manager.Customer\obj\Debug\net10.0\refint\DotnetLab.Manager.Customer.dll
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Manager\DotnetLab.Manager.Customer\obj\Debug\net10.0\DotnetLab.Manager.Customer.pdb
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Manager\DotnetLab.Manager.Customer\obj\Debug\net10.0\ref\DotnetLab.Manager.Customer.dll
+C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Manager\DotnetLab.Manager.Customer\obj\Debug\net10.0\DotnetLab.Manager.Customer.sourcelink.json

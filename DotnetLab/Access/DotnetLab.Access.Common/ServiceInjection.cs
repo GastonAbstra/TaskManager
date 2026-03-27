@@ -10,7 +10,6 @@ public static class ServiceInjection
         _ = services.AddDbContext<DotnetLabDbContext>(options =>
         {
             var connectionString = configuration.ConnectionStrings.Postgres;
-            _ = options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             _ = options.UseNpgsql(connectionString);
         });
     }

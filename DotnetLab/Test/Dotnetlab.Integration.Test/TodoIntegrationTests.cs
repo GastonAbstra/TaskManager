@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Aspire.Hosting.Testing;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Aspire.Hosting.Testing;
 using DotnetLab.Host.Api.Models.Todo;
+using DotnetLab.Host.Api.Models.User;
 using System.Net;
 using System.Net.Http.Json;
 
 using OrchestratorProject = Projects.DotnetLab_Host_Orchestrator;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Hosting;
 
 namespace DotnetLab.Manager.Customer.Tests.Integration;
 
@@ -23,42 +19,42 @@ public class TodoIntegrationTests
     {
         var appHost = await DistributedApplicationTestingBuilder
             .CreateAsync<OrchestratorProject>();
-        
+
         _app = await appHost.BuildAsync();
         await _app.StartAsync();
 
-        var connectionString = await _app.GetConnectionStringAsync("Postgres");
-
-        var factory = new WebApplicationFactory<ApiProgram>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.UseEnvironment("Testing");
-                builder.ConfigureAppConfiguration((_, config) =>
-                {
-                    config.AddInMemoryCollection(new Dictionary<string, string?>
-                    {
-                        ["ConnectionStrings:Postgres"] = connectionString
-                    });
-                });
-
-                builder.ConfigureServices(services =>
-                {
-                    services.AddAuthentication("Test")
-                            .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("Test", null);
-                });
-            });
-
-        _client = factory.CreateClient();
+        // Aquí inicializamos el HttpClient apuntando al API
+        _client = _app.CreateHttpClient("dotnetlab-host-api");
     }
 
     [Test]
+
+    
+
     public async Task CreateTodo_HappyPath_ReturnsCreated()
     {
-        
+        var registerRequest = new CreateUserApiRequest 
+        { 
+            Email = "testuser@example.com", 
+            Password = "Pass123$"
+        };
+
+        var registerResponse = await _client.PostAsJsonAsync("/api/user", registerRequest);
+        registerResponse.EnsureSuccessStatusCode();
+
+        var createdUser = await registerResponse.Content.ReadFromJsonAsync<UserApiModel>();
+
+        var todoRequest = new CreateTodoApiRequest { UserId = createdUser?.Id ?? 1, Title = "Test Aspire DB" };
+        var todoResponse = await _client.PostAsJsonAsync("/api/todo", todoRequest);
+
+        Assert.That(todoResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+
         var request = new CreateTodoApiRequest { UserId = 1, Title = "Test Aspire DB" };
         var response = await _client.PostAsJsonAsync("/api/todo", request);
+
         Console.WriteLine(await response.Content.ReadAsStringAsync());
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
     }
 
     [OneTimeTearDown]

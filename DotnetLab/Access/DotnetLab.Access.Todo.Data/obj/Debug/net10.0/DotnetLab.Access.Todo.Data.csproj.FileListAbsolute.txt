@@ -32,3 +32,4 @@ C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Todo.Data\obj\Debug\net10.0\refint\DotnetLab.Access.Todo.Data.dll
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Todo.Data\obj\Debug\net10.0\DotnetLab.Access.Todo.Data.pdb
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Todo.Data\obj\Debug\net10.0\ref\DotnetLab.Access.Todo.Data.dll
+C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Access\DotnetLab.Access.Todo.Data\obj\Debug\net10.0\DotnetLab.Access.Todo.Data.sourcelink.json

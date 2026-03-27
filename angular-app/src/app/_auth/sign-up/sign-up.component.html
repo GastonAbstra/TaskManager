@@ -22,19 +22,31 @@
         class="input">
     </div>
 
-    <!-- <div class="form-group flex flex-col gap-2">
+    <div class="form-group flex flex-col gap-2">
       <input 
         type="password" 
-        formControlName="password" 
+        formControlName="confirmPassword" 
         placeholder="Confirm your password"
-        class="input">
-    </div> -->
+        class="input"
+        [class.border-red-500]="signUpForm.hasError('passwordMismatch') 
+          && signUpForm.get('confirmPassword')?.touched">
+    </div>
+
+    @if (signUpForm.hasError('passwordMismatch') && signUpForm.get('confirmPassword')?.touched) {
+      <span class="text-xs text-red-500 animate-pulse">
+        Passwords don't match.
+      </span>
+    }
 
     <button 
       type="submit" 
-      [disabled]="signUpForm.invalid"
+      [disabled]="signUpForm.invalid || store.loading()"
       class="btn w-full mt-2 py-3 bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20">
-      Sign Up
+      @if (store.loading()) {
+        <span>Loading...</span>
+      } @else {
+        Sign up
+      }
     </button>
 
     <div class="text-center mt-auto pt-4 border-t" style="border-color: var(--border)">

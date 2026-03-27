@@ -320,3 +320,4 @@ C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Api\
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Api\obj\Debug\net10.0\DotnetLab.Host.Api.pdb
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Api\obj\Debug\net10.0\DotnetLab.Host.Api.genruntimeconfig.cache
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Api\obj\Debug\net10.0\ref\DotnetLab.Host.Api.dll
+C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Api\obj\Debug\net10.0\DotnetLab.Host.Api.sourcelink.json

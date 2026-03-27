@@ -28,3 +28,4 @@ C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Comm
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Common\obj\Debug\net10.0\refint\DotnetLab.Host.Common.dll
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Common\obj\Debug\net10.0\DotnetLab.Host.Common.pdb
 C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Common\obj\Debug\net10.0\ref\DotnetLab.Host.Common.dll
+C:\Users\GastonDoutreleau\Desktop\TaskManager\DotnetLab\Host\DotnetLab.Host.Common\obj\Debug\net10.0\DotnetLab.Host.Common.sourcelink.json

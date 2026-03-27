@@ -12,13 +12,11 @@ internal class TodoManager : ITodoManager
         _todoDataAccess = todoDataAccess;
     }
 
-    public async Task<bool> CreateAsync(CreateTodoRequest request)
+    public async Task<TodoModel> CreateAsync(CreateTodoRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.Title))
-            throw new ArgumentException("A task title cannot be empty");
-
-        var accesRequest = new CreateTodoAccessRequest(request.UserId, request.Title);
-        return await _todoDataAccess.CreateAsync(accesRequest);
+        var accessRequest = new CreateTodoAccessRequest(request.UserId, request.Title);
+        var accessModel = await _todoDataAccess.CreateAsync(accessRequest);
+        return new TodoModel(accessModel.Id, accessModel.UserId, accessModel.Title, accessModel.Completed);
     }
     
     public async Task<IEnumerable<TodoModel>> GetByUserIdAsync(int userId)
@@ -35,16 +33,14 @@ internal class TodoManager : ITodoManager
         return new TodoModel(accessModel.Id, accessModel.UserId, accessModel.Title, accessModel.Completed);
     }
 
-    public async Task<bool> DeleteAsync(int userId, int todoId)
+    public async Task<int> DeleteAsync(int userId, int todoId)
     {
-        var todosOwnedByUser = await _todoDataAccess.GetByUserIdAsync(userId);
+        var todosOwnedByUser = await _todoDataAccess.GetByIdAsync(todoId);
 
-        if (todosOwnedByUser.Any(t => t.Id == todoId))
+        if (todosOwnedByUser.UserId != userId)
         {
-            var success = await _todoDataAccess.DeleteAsync(todoId);
-            return success;
+            throw new UnauthorizedAccessException("Delete operation found an exception: You don't have permission to delete this task");
         }
-
-        return false;
+        return await _todoDataAccess.DeleteAsync(todoId);
     }
 }

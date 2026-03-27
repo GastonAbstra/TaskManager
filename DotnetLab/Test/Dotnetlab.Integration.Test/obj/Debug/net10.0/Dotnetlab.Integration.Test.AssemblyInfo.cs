@@ -16,7 +16,7 @@ using System.Reflection;
     ".1.2\\tools\\ext\\"))]
 [assembly: System.Reflection.AssemblyMetadata("dcpbinpath", ("C:\\Users\\GastonDoutreleau\\.nuget\\packages\\aspire.hosting.orchestration.win-x64\\13" +
     ".1.2\\tools\\ext\\bin\\"))]
-[assembly: System.Reflection.AssemblyMetadata("apphostprojectpath", ("c:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Test\\Dotnetlab.Integratio" +
+[assembly: System.Reflection.AssemblyMetadata("apphostprojectpath", ("C:\\Users\\GastonDoutreleau\\Desktop\\TaskManager\\DotnetLab\\Test\\Dotnetlab.Integratio" +
     "n.Test"))]
 [assembly: System.Reflection.AssemblyMetadata("apphostprojectname", "Dotnetlab.Integration.Test.csproj")]
 [assembly: System.Reflection.AssemblyMetadata("aspiredashboardpath", ("C:\\Users\\GastonDoutreleau\\.nuget\\packages\\aspire.dashboard.sdk.win-x64\\13.1.2\\too" +
@@ -24,7 +24,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dotnetlab.Integration.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3a860f77c0d66002ebebcfb1f5628f60adc67c1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dotnetlab.Integration.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dotnetlab.Integration.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

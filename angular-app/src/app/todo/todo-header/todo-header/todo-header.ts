@@ -5,10 +5,10 @@ import { ThemeService } from '../../../utils/helpers/theme-helper.service'; // A
 @Component({
   selector: 'app-header',
   standalone: true,
-  templateUrl: './header.html',
-  styleUrl: './header.scss',
+  templateUrl: './todo-header.html',
+  styleUrl: './todo-header.scss',
 })
-export class Header {
+export class TodoHeader {
   @Input() title: string = 'Welcome Back';
   
   private readonly authStore = inject(AuthStore);
