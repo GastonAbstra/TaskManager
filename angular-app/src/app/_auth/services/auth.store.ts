@@ -1,11 +1,11 @@
 import { computed, effect, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
-import { AuthService } from './auth-api.service';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { LoginApiRequest } from './login-api-request';
-import { pipe, tap, exhaustMap, catchError, of, throwError, map } from 'rxjs';
+import { pipe, tap, exhaustMap, catchError, of, throwError, map, EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenModel } from './token.model';
+import { AuthService } from './auth-api.service';
 import { UserApiService } from '../../user/data-access/user-api.service';
 import { UserModel } from '../../user/user.model';
 
@@ -104,7 +104,8 @@ export const AuthStore = signalStore(
                 });
               },
               error: (err) => patchState(store, { loading: false, error: err.error?.detail || 'Authentication error' })
-            })
+            }),
+            catchError(() => EMPTY)
           )
         )
       )

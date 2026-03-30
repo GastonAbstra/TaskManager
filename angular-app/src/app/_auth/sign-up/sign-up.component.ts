@@ -1,66 +1,87 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { form, required, minLength, email, validate, FormField } from '@angular/forms/signals';
+
 import { UserApiService } from '../../user/data-access/user-api.service';
 import { AuthStore } from '../services/auth.store';
+
+interface SignUpData {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [RouterModule, FormField],
   templateUrl: './sign-up.component.html',
 })
 export class SignUpComponent {
   @Output() toggleFlip = new EventEmitter<void>();
+  
   private readonly userApiService = inject(UserApiService);
   private readonly router = inject(Router);
   readonly store = inject(AuthStore);
 
-  private passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
+  protected signUpModel = signal({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-    return password && confirmPassword && password.value !== confirmPassword.value 
-      ? { passwordMismatch: true } 
-      : null;
-  };
-
-  protected readonly signUpForm = new FormGroup({
-    email: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required, Validators.email] 
-    }),
-    password: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required, Validators.minLength(6)] 
-    }),
-    confirmPassword: new FormControl('', { 
-        nonNullable: true, 
-        validators: [Validators.required] 
-      })
-    }, { validators: this.passwordMatchValidator });
-
-  public submitForm(): void {
-    if (this.signUpForm.invalid) return;
-
-    const rawValues = this.signUpForm.getRawValue();
+  protected signUpForm = form(this.signUpModel, (path) => {
+    required(path.email, { message: "Email is required" });
+    email(path.email, { message: "Invalid email format" });
     
-    this.userApiService.create(rawValues).subscribe({
+    required(path.password, { message: "Password is required" });
+    minLength(path.password, 6, { message: "Must be at least 6 characters" });
+
+    required(path.confirmPassword, { message: "Please confirm your password" });
+
+    validate(path.confirmPassword, ({value, valueOf}) => {
+      const confirmPassword = value();
+      const password = valueOf(path.password);
+
+      if(confirmPassword !== password){
+          return {
+            kind: 'passwordMismatch',
+            message: 'Password do not match'
+          };
+      }
+      return null;
+    });
+  });
+
+  protected isFieldInvalid(fieldName: keyof SignUpData): boolean {
+    const fieldSignal = this.signUpForm[fieldName];
+    if (!fieldSignal) return false;
+
+    const field = fieldSignal();
+    return field && field.touched() && field.errors().length > 0;
+  }
+
+  public submitForm(event: Event) {
+    event.preventDefault();
+    if (this.signUpForm().invalid()) {
+      console.error('Form is invalid', this.signUpForm().errors());
+      return;
+    }
+
+    const { email, password } = this.signUpModel();
+    
+    this.userApiService.create({ email, password }).subscribe({
       next: () => {
         this.toggleFlip.emit();
-
         setTimeout(() => {
           this.router.navigateByUrl('/auth/signin');
-        }, 600); // Flipcard animation takes 0.6s
+        }, 600);
       },
-      error: (err) => {
-        console.error('Error al registrar usuario', err);
-      }
+      error: (err) => console.error('Registration failed', err)
     });
   }
 
-  onToggleFlip(event: Event) {
+  public onToggleFlip(event: Event) {
     event.preventDefault();
     this.toggleFlip.emit();
   }

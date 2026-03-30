@@ -11,29 +11,44 @@
     </div>
   }
 
-  <form [formGroup]="signInForm" (ngSubmit)="submitForm()" class="flex flex-col gap-5 flex-1">
+  <form (submit)="submitForm($event)" aria-label="sign-in-form" class="flex flex-col gap-5 flex-1">
     
     <div class="form-group flex flex-col gap-2">
       <label class="text-sm font-medium" style="color: var(--muted)">Email</label>
       <input 
         type="email" 
-        formControlName="email" 
+        [formField]="signInForm.email" 
         placeholder="your@email.com"
-        class="input">
+        class="input"
+        aria-label="email">
+      @if (isFieldInvalid('email')) {
+        <p class="text-xs text-red-500 animate-pulse">
+          @for (error of signInForm.email().errors(); track $index) {
+          <span>{{ error.message }}</span>
+          }
+        </p>
+      }
     </div>
 
     <div class="form-group flex flex-col gap-2">
       <label class="text-sm font-medium" style="color: var(--muted)">Password</label>
       <input 
         type="password" 
-        formControlName="password" 
+        [formField]="signInForm.password" 
         placeholder="********"
         class="input">
+      @if (isFieldInvalid('password')) {
+        <p class="text-xs text-red-500 animate-pulse">
+          @for (error of signInForm.password().errors(); track $index) {
+          <span>{{ error.message }}</span>
+          }
+        </p>
+      }
     </div>
 
     <button 
       type="submit" 
-      [disabled]="signInForm.invalid || store.loading()"
+      [disabled]="signInForm().invalid() || store.loading()"
       class="btn btn-primary w-full mt-2 py-3">
       
       @if (store.loading()) {

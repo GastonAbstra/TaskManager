@@ -2,45 +2,62 @@
   
   <h2 class="text-center text-2xl font-bold mb-6" style="color: var(--text)">Create Account</h2>
 
-  <form [formGroup]="signUpForm" (ngSubmit)="submitForm()" class="flex flex-col gap-5 flex-1">
+  <form (submit)="submitForm($event)" aria-label="sign-in-form" class="flex flex-col gap-5 flex-1">
 
     <div class="form-group flex flex-col gap-2">
       <label class="text-sm font-medium" style="color: var(--muted)">Email</label>
       <input 
-        type="email" 
-        formControlName="email" 
+        type="text" 
+        [formField]="signUpForm.email" 
         placeholder="your@email.com"
-        class="input">
+        class="input"
+        >
+      
+      @if (isFieldInvalid('email')) {
+        <p class="text-xs text-red-500 animate-pulse">
+          @for (error of signUpForm.email().errors(); track $index) {
+            <span>{{ error.message }}</span>
+          }
+        </p>
+      }
     </div>
 
     <div class="form-group flex flex-col gap-2">
       <label class="text-sm font-medium" style="color: var(--muted)">Password</label>
       <input 
         type="password" 
-        formControlName="password" 
-        placeholder="6 characters minimun"
+        [formField]="signUpForm.password" 
+        placeholder="6 characters minimum"
         class="input">
+
+        @if (isFieldInvalid('password')) {
+        <p class="text-xs text-red-500 animate-pulse">
+          @for (error of signUpForm.password().errors(); track $index) {
+            <span>{{ error.message }}</span>
+          }
+        </p>
+      }
     </div>
 
     <div class="form-group flex flex-col gap-2">
       <input 
         type="password" 
-        formControlName="confirmPassword" 
+        [formField]="signUpForm.confirmPassword" 
         placeholder="Confirm your password"
         class="input"
-        [class.border-red-500]="signUpForm.hasError('passwordMismatch') 
-          && signUpForm.get('confirmPassword')?.touched">
+        [class.border-red-500]="signUpForm.confirmPassword().invalid() && signUpForm.confirmPassword().touched()">
     </div>
-
-    @if (signUpForm.hasError('passwordMismatch') && signUpForm.get('confirmPassword')?.touched) {
-      <span class="text-xs text-red-500 animate-pulse">
-        Passwords don't match.
-      </span>
-    }
+    @if (isFieldInvalid('confirmPassword')) {
+        <p class="text-xs text-red-500 animate-pulse">
+          @for (error of signUpForm.confirmPassword().errors(); track $index) {
+            <span>{{ error.message }}</span>
+          }
+        </p>
+      }
 
     <button 
       type="submit" 
-      [disabled]="signUpForm.invalid || store.loading()"
+      [disabled]="signUpForm().invalid() || store.loading()"
       class="btn w-full mt-2 py-3 bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20">
       @if (store.loading()) {
         <span>Loading...</span>
